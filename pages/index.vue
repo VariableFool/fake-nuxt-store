@@ -26,11 +26,11 @@ onMounted(async () => {
       <div
         v-for="n in 8"
         :key="n"
-        class="w-72 p-5 rounded-2xl border border-gray-200 animate-pulse bg-gray-300 h-96"
+        class="w-72 p-5 rounded-2xl animate-pulse bg-gray-300 h-96"
       ></div>
     </div>
 
-    <div v-else-if="error" class="text-red-500 text-lg">{{ error }}</div>
+    <div v-else-if="error" class="text-red-500 text-lg text-center">{{ error }}</div>
 
     <div v-else class="mt-4 mb-4 flex flex-wrap justify-center gap-5">
       <ProductCard v-for="product in products" :key="product.id" :product="product" />
