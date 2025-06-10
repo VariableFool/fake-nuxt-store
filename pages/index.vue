@@ -16,12 +16,13 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex justify-between">
-      <h1 class="text-2xl font-bold">Список товаров:</h1>
+      <h1 class="text-2xl font-bold text-sky-400">Список товаров:</h1>
       <button
         @click="refreshCatalog"
-        class="cursor-pointer p-1 bg-sky-400 text-white rounded-[7px] transition hover:bg-sky-500"
+        class="w-[150px] cursor-pointer p-1 bg-sky-400 text-white rounded-[7px] transition hover:bg-sky-500"
+        :disabled="pending"
       >
-        Обновить
+        {{ pending ? 'Обновление...' : 'Обновить' }}
       </button>
     </div>
 

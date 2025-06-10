@@ -11,3 +11,8 @@ body {
   width: 1280px;
   font-family: 'Inter', Verdana, Geneva, Tahoma, sans-serif;
 }
+
+button {
+  padding: 7px 10px;
+  background-color: aqua;
+}
