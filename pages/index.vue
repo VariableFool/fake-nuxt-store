@@ -5,19 +5,12 @@ const {
   data: products,
   pending,
   error,
-  refresh,
-} = await useFetch<Products>('https://fakestoreapi.com/products', {
-  key: '/products/all',
-  onRequestError() {
-    console.error(error);
-  },
-});
+} = await useFetch<Products>('https://fakestoreapi.com/products');
 </script>
 
 <template>
   <div>
-    <h1 class="text-2xl font-bold">Каталог товаров:</h1>
-    <button @click="">Обновить</button>
+    <h1 class="text-2xl font-bold">Список товаров:</h1>
 
     <div v-if="pending" class="mt-4 flex flex-wrap justify-center gap-5">
       <div
