@@ -1,26 +1,23 @@
 <script setup lang="ts">
 import type { Products } from '~/types';
 
-const products = ref<Products | null>(null);
-const error = ref<string | null>(null);
-const pending = ref(true);
-
-onMounted(async () => {
-  try {
-    const data = (await fetchProducts()) as Products;
-    products.value = data;
-  } catch (e) {
-    error.value = 'Не удалось загрузить товары';
-    console.error(e);
-  } finally {
-    pending.value = false;
-  }
+const {
+  data: products,
+  pending,
+  error,
+  refresh,
+} = await useFetch<Products>('https://fakestoreapi.com/products', {
+  key: '/products/all',
+  onRequestError() {
+    console.error(error);
+  },
 });
 </script>
 
 <template>
   <div>
     <h1 class="text-2xl font-bold">Каталог товаров:</h1>
+    <button @click="">Обновить</button>
 
     <div v-if="pending" class="mt-4 flex flex-wrap justify-center gap-5">
       <div

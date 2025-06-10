@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Gravitas+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pattaya&display=swap');
 @import 'tailwindcss';
 
-body {
+html {
   display: flex;
   justify-content: center;
+  overflow-y: scroll;
+}
+
+body {
+  width: 1280px;
   font-family: 'Inter', Verdana, Geneva, Tahoma, sans-serif;
 }

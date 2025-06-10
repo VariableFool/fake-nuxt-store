@@ -53,11 +53,19 @@ const goBack = () => {
         </div>
       </div>
     </div>
-    <button
-      @click="goBack"
-      class="cursor-pointer w-28 mt-4 ml-auto p-2 text-white bg-sky-400 border-0 rounded-2xl transition hover:bg-sky-500"
-    >
-      Назад
-    </button>
+    <div class="flex gap-2.5 justify-end">
+      <button
+        @click="goBack"
+        class="cursor-pointer w-28 mt-4 p-1 text-white bg-sky-400 border-0 rounded-2xl transition hover:bg-sky-500"
+      >
+        Назад
+      </button>
+      <button
+        @click="navigateTo('/')"
+        class="cursor-pointer w-28 mt-4 p-1 text-white bg-sky-400 border-0 rounded-2xl transition hover:bg-sky-500"
+      >
+        На главную
+      </button>
+    </div>
   </div>
 </template>
