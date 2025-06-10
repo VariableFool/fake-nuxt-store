@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import type { Products } from '~/types';
+import type { Product } from '~/types';
 
-const products = ref<Products | null>(null);
-
-onMounted(async () => {
-  if (products.value === null) {
-    const res = (await fetchProducts()) as Products;
-    products.value = res;
-  }
-});
+defineProps<{
+  product: Product;
+}>();
 </script>
 
 <template>
   <div
-    v-for="product in products"
-    :key="product.id"
     class="cursor-pointer w-72 p-5 rounded-2xl border border-gray-200 transition flex flex-col hover:-translate-y-2 hover:shadow-2xl"
   >
     <div class="relative flex justify-center">
