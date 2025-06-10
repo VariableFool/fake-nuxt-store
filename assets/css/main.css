@@ -12,7 +12,29 @@ body {
   font-family: 'Inter', Verdana, Geneva, Tahoma, sans-serif;
 }
 
-button {
-  padding: 7px 10px;
-  background-color: aqua;
+.global-button {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 7px;
+  color: white;
+  background-color: var(--color-sky-400);
+}
+
+.global-button:hover {
+  outline: 2px solid var(--color-sky-700);
+}
+
+input {
+  padding: 7px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+input:hover {
+  outline: 2px solid var(--color-sky-400);
+}
+
+input:focus {
+  outline: 2px solid var(--color-sky-400);
+  background-color: white;
 }

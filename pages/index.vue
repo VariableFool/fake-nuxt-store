@@ -11,19 +11,24 @@ onMounted(() => {
     productStore.fetchProducts();
   }
 });
+
+const route = useRoute();
+
+const backRoute = computed(() => {
+  return route.path === '/' ? '/login' : '/';
+});
 </script>
 
 <template>
   <div>
     <div class="flex justify-between">
       <h1 class="text-2xl font-bold text-sky-400">Список товаров:</h1>
-      <button
-        @click="refreshCatalog"
-        class="w-[150px] cursor-pointer p-1 bg-sky-400 text-white rounded-[7px] transition hover:bg-sky-500"
-        :disabled="pending"
-      >
-        {{ pending ? 'Обновление...' : 'Обновить' }}
-      </button>
+      <div class="flex gap-4">
+        <NuxtLink :to="backRoute" class="global-button">Войти в аккаунт</NuxtLink>
+        <button @click="refreshCatalog" :disabled="pending" class="global-button">
+          {{ pending ? 'Обновление...' : 'Обновить' }}
+        </button>
+      </div>
     </div>
 
     <div v-if="pending" class="mt-4 flex flex-wrap justify-center gap-5">
