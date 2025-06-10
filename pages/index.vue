@@ -1,16 +1,29 @@
 <script setup lang="ts">
-import type { Products } from '~/types';
+const productStore = useProductStore();
+const { products, pending, error } = storeToRefs(productStore);
 
-const {
-  data: products,
-  pending,
-  error,
-} = await useFetch<Products>('https://fakestoreapi.com/products');
+async function refreshCatalog() {
+  await productStore.fetchProducts();
+}
+
+onMounted(() => {
+  if (products.value === null || products.value.length <= 1) {
+    productStore.fetchProducts();
+  }
+});
 </script>
 
 <template>
   <div>
-    <h1 class="text-2xl font-bold">Список товаров:</h1>
+    <div class="flex justify-between">
+      <h1 class="text-2xl font-bold">Список товаров:</h1>
+      <button
+        @click="refreshCatalog"
+        class="cursor-pointer p-1 bg-sky-400 text-white rounded-[7px] transition hover:bg-sky-500"
+      >
+        Обновить
+      </button>
+    </div>
 
     <div v-if="pending" class="mt-4 flex flex-wrap justify-center gap-5">
       <div

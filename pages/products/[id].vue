@@ -1,27 +1,30 @@
 <script setup lang="ts">
-import type { Product } from '~/types';
-const route = useRoute();
-
-const {
-  data: product,
-  pending,
-  error,
-} = await useAsyncData<Product>(`product-${route.params.id}`, () =>
-  $fetch<Product>(`https://fakestoreapi.com/products/${route.params.id}`),
-);
-
 const goBack = () => {
   window.history.back();
 };
+
+const route = useRoute();
+
+const id = computed(() => route.params.id);
+
+const productStore = useProductStore();
+const { products, pending, error } = storeToRefs(productStore);
+
+const product = computed(() => {
+  return products.value?.find((p) => p.id === Number(id.value));
+});
+
+onMounted(() => {
+  if (product.value === undefined) {
+    productStore.fetchSingleProduct(Number(id.value));
+  }
+});
 </script>
 
 <template>
   <div class="p-4 max-w-3xl mx-auto">
     <div v-if="pending" class="space-y-6">
-      <div class="animate-pulse bg-gray-200 h-96 rounded"></div>
-      <div class="h-8 bg-gray-200 w-3/4 rounded animate-pulse"></div>
-      <div class="h-4 bg-gray-200 w-full rounded animate-pulse"></div>
-      <div class="h-4 bg-gray-200 w-1/2 rounded animate-pulse mt-2"></div>
+      <div class="animate-pulse bg-gray-400 h-96 rounded-2xl"></div>
     </div>
 
     <div v-else-if="error" class="text-red-500 text-xl text-center mt-10">
@@ -36,7 +39,7 @@ const goBack = () => {
         <img
           :src="product.image"
           :alt="product.title"
-          loading="lazy"
+          :placeholder="`https://placehold.co/300x400?text=No\nImage`"
           class="w-full h-full object-contain"
         />
       </div>
