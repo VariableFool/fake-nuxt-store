@@ -14,12 +14,7 @@ const backRoute = computed(() => {
   return route.path === '/' ? '/login' : '/';
 });
 
-const categories = {
-  mensClothing: "men's clothing",
-  jewelery: 'jewelery',
-  electronics: 'electronics',
-  womensClothing: "women's clothing",
-};
+const categories = ["men's clothing", 'jewelery', 'electronics', "women's clothing"];
 
 const selectedCategory = ref('Все категории');
 
@@ -45,27 +40,31 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="flex justify-between">
-      <h1 class="text-2xl font-bold text-sky-400">Список товаров:</h1>
-      <div class="flex items-center gap-4">
-        <div>
-          <select
-            v-model="selectedCategory"
-            id="category"
-            class="w-full border border-sky-400 rounded-md p-2 focus:outline-none focus:ring focus:ring-sky-500"
-            placeholder="Выберите категорию"
-          >
-            <option :value="'Все категории'" selected>Все категории</option>
-            <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
-          </select>
-        </div>
+    <div
+      class="flex flex-wrap justify-end items-center gap-4 max-[450px]:justify-center max-[450px]:mb-5"
+    >
+      <div>
+        <select
+          v-model="selectedCategory"
+          id="category"
+          class="w-full border border-sky-400 rounded-md p-2 focus:outline-none focus:ring focus:ring-sky-500"
+          placeholder="Выберите категорию"
+        >
+          <option :value="'Все категории'" selected>Все категории</option>
+          <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+        </select>
+      </div>
 
+      <div>
         <input
           type="text"
           class="search-input text-sky-600"
           placeholder="🔍 Поиск..."
           v-model="targetItem"
         />
+      </div>
+
+      <div class="flex gap-4">
         <NuxtLink
           :to="backRoute"
           class="global-button flex items-center"
@@ -78,6 +77,8 @@ onMounted(() => {
         </button>
       </div>
     </div>
+
+    <h1 class="text-2xl font-bold text-sky-400 max-[450px]:text-center">Список товаров:</h1>
 
     <div v-if="pending" class="mt-4 flex flex-wrap justify-center gap-5">
       <div
