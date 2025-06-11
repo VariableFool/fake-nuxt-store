@@ -39,3 +39,7 @@ input:focus {
   outline: 2px solid var(--color-sky-400);
   background-color: white;
 }
+
+.search-input {
+  outline: 1px solid var(--color-sky-400);
+}

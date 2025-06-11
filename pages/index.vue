@@ -14,6 +14,16 @@ const backRoute = computed(() => {
   return route.path === '/' ? '/login' : '/';
 });
 
+const targetItem = ref('');
+
+const filteredProducts = computed(() => {
+  if (targetItem.value) {
+    return products.value?.filter((p) =>
+      p.title.toLowerCase().includes(targetItem.value.toLowerCase()),
+    );
+  } else return products.value;
+});
+
 onMounted(() => {
   if (products.value === null || products.value.length <= 1) {
     productStore.fetchProducts();
@@ -26,7 +36,16 @@ onMounted(() => {
     <div class="flex justify-between">
       <h1 class="text-2xl font-bold text-sky-400">Список товаров:</h1>
       <div class="flex gap-4">
-        <NuxtLink :to="backRoute" class="global-button" v-if="!auth.isAuthenticated"
+        <input
+          type="text"
+          class="search-input text-sky-600"
+          placeholder="🔍 Поиск..."
+          v-model="targetItem"
+        />
+        <NuxtLink
+          :to="backRoute"
+          class="global-button flex items-center"
+          v-if="!auth.isAuthenticated"
           >Войти в аккаунт</NuxtLink
         >
         <button @click="auth.logout" class="global-button" v-else>Выйти</button>
@@ -47,7 +66,7 @@ onMounted(() => {
     <div v-else-if="error" class="text-red-500 text-lg text-center">{{ error }}</div>
 
     <div v-else class="mt-4 mb-4 flex flex-wrap justify-center gap-5">
-      <ProductCard v-for="product in products" :key="product.id" :product="product" />
+      <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" />
     </div>
   </div>
 </template>

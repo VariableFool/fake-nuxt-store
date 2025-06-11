@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: 'auth-global',
+  requiresAuth: false,
+});
+</script>
 
 <template>
   <div class="text-center">
