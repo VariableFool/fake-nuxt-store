@@ -35,7 +35,7 @@ const backRoute = computed(() => {
       <div
         v-for="n in 8"
         :key="n"
-        class="w-72 p-5 rounded-2xl animate-pulse bg-gray-300 h-96"
+        class="w-72 p-5 rounded-2xl animate-pulse bg-gray-400 h-96"
       ></div>
     </div>
 
