@@ -14,6 +14,15 @@ const backRoute = computed(() => {
   return route.path === '/' ? '/login' : '/';
 });
 
+const categories = {
+  mensClothing: "men's clothing",
+  jewelery: 'jewelery',
+  electronics: 'electronics',
+  womensClothing: "women's clothing",
+};
+
+const selectedCategory = ref('Все категории');
+
 const targetItem = ref('');
 
 const filteredProducts = computed(() => {
@@ -21,7 +30,10 @@ const filteredProducts = computed(() => {
     return products.value?.filter((p) =>
       p.title.toLowerCase().includes(targetItem.value.toLowerCase()),
     );
-  } else return products.value;
+  } else if (selectedCategory.value !== 'Все категории') {
+    return products.value?.filter((p) => p.category === selectedCategory.value);
+  }
+  return products.value;
 });
 
 onMounted(() => {
@@ -35,7 +47,19 @@ onMounted(() => {
   <div>
     <div class="flex justify-between">
       <h1 class="text-2xl font-bold text-sky-400">Список товаров:</h1>
-      <div class="flex gap-4">
+      <div class="flex items-center gap-4">
+        <div>
+          <select
+            v-model="selectedCategory"
+            id="category"
+            class="w-full border border-sky-400 rounded-md p-2 focus:outline-none focus:ring focus:ring-sky-500"
+            placeholder="Выберите категорию"
+          >
+            <option :value="'Все категории'" selected>Все категории</option>
+            <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+          </select>
+        </div>
+
         <input
           type="text"
           class="search-input text-sky-600"
