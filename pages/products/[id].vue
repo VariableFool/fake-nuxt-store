@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'auth-global',
+  requiresAuth: true,
+});
+
 const goBack = () => {
   window.history.back();
 };

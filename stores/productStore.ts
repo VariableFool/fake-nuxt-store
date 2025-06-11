@@ -15,6 +15,7 @@ export const useProductStore = defineStore('products', () => {
   } = useFetch<Products>('https://fakestoreapi.com/products', {
     method: 'GET',
     immediate: false,
+    watch: false,
   });
 
   const fetchProducts = async () => {

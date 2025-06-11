@@ -2,20 +2,22 @@
 const productStore = useProductStore();
 const { products, pending, error } = storeToRefs(productStore);
 
+const auth = useAuthStore();
+
 async function refreshCatalog() {
   await productStore.fetchProducts();
 }
-
-onMounted(() => {
-  if (products.value === null || products.value.length <= 1) {
-    productStore.fetchProducts();
-  }
-});
 
 const route = useRoute();
 
 const backRoute = computed(() => {
   return route.path === '/' ? '/login' : '/';
+});
+
+onMounted(() => {
+  if (products.value === null || products.value.length <= 1) {
+    productStore.fetchProducts();
+  }
 });
 </script>
 
@@ -24,7 +26,10 @@ const backRoute = computed(() => {
     <div class="flex justify-between">
       <h1 class="text-2xl font-bold text-sky-400">Список товаров:</h1>
       <div class="flex gap-4">
-        <NuxtLink :to="backRoute" class="global-button">Войти в аккаунт</NuxtLink>
+        <NuxtLink :to="backRoute" class="global-button" v-if="!auth.isAuthenticated"
+          >Войти в аккаунт</NuxtLink
+        >
+        <button @click="auth.logout" class="global-button" v-else>Выйти</button>
         <button @click="refreshCatalog" :disabled="pending" class="global-button">
           {{ pending ? 'Обновление...' : 'Обновить' }}
         </button>
