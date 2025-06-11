@@ -1,4 +1,4 @@
-# 100% completed
+# Fake store
 
 This is my solution for the Fake Store API using Nuxt 3 + Vue 3 + TypeScript + Pinia + TailwindCSS
 
