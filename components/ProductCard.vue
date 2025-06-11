@@ -16,7 +16,7 @@ defineProps<{
           :src="product.image || '/placeholder.jpg'"
           :alt="product.title"
           loading="lazy"
-          class="h-60 object-contain max-[450px]:h-32 max-[768px]:h-32"
+          class="h-60 object-contain max-[450px]:h-32 max-[768px]:h-48"
         />
       </div>
       <div class="flex flex-col pt-3 justify-between h-full">
